@@ -10,7 +10,6 @@ var Service = Class.extend({
 	init: function(searchWord, output) {
 		this.searchWord = searchWord;
 		this.output = output;
-		this.requestHandler = new RequestHandler();
 	},
 	
 	getServiceURL: function() {
@@ -22,18 +21,21 @@ var Service = Class.extend({
 	},
 	
 	sendRequest: function() {
+		var _this = this; //permet de retenir la référene à l'objet courant pour la fonction process
 		$.ajax({
-			async: 'false',
 			url: this.getServiceURL(),
 			type: 'GET',
 			dataType: 'jsonp',
 			dataCharset: 'jsonp',
-			success: this.process;
+			success: function(data) {
+				var json = eval(data);
+				_this.process(json, _this);
+			},
 		});
 	},
 	
 	getInfos: function() {
 		console.log(this);
-	}
+	},
 	
 });
