@@ -10,10 +10,10 @@ var DictionaryService = Service.extend({
 	},
 	
 	process: function(json, _this) {
-		for (var i = 1; i <= json.rows; i++) {
-			_this.words[i-1] = new Word(json['data'][i]['synset_offset'], json['data'][i]['words']);
-		}
-		console.log(_this.words);
+		var words = _this.parseWords(json);
+		console.log(words);
 	}
+	
+	
 	
 });

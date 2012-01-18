@@ -38,4 +38,18 @@ var Service = Class.extend({
 		console.log(this);
 	},
 	
+	parseWords: function(json) {
+		var words = new Array();
+		for (var word in json['data']) {
+			words.push(new Word(
+														json['data'][word]['synset_offset'], 
+													    json['data'][word]['words'],
+														json['data'][word]['ss_type'],
+													    json['data'][word]['sense_id'],
+														json['data'][word]['gloss']
+													));
+		}
+		return words;
+	},
+	
 });
