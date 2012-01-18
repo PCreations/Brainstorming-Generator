@@ -1,0 +1,8 @@
+1) Choix d'un mot de départ
+2) Prendre 1 sens au hasard et inscrire les mots (senseid différent de tous les mots déjà trouvés)
+3) Prendre 1 type de relation au hasard
+4) Prendre 1 mot au hasard (dans la liste des mots séparés par une virgule) s'il n'est pas déjà indiqué
+5) Revenir à l'étape 2) 2 fois
+6) Revenir à l'étape 1 pour les trois mots trouvés.
+7) Arrêt quand niveau de récursivité atteint ou plus de mot trouvé
+		
