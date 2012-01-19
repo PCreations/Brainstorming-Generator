@@ -6,7 +6,7 @@ var Service = Class.extend({
 	serviceURL: '',
 	BASE_URL : "http://id.asianwordnet.org/services/",
 	WORD_LIMIT: 10,
-	WORD_MAX_PER_SENSE: 3
+	WORD_MAX_PER_SENSE: 3,
 	
 	//constructor
 	init: function(searchWord, output) {
@@ -36,9 +36,25 @@ var Service = Class.extend({
 	
 	
 	setNumberWordBySenses: function(numberOfSenses) {
-		var numberOfWordBySenses = this.WORD_LIMIT / numberOfSensess; //on obtient ainsi le nombre moyen de mots par sens. 
-		
-		ex : 5 sens, nombre de mots par sens = 2
+		console.log("Nombre de sens : "+numberOfSenses);
+		var numberOfWordBySenses = Math.floor(this.WORD_LIMIT / numberOfSenses); //on obtient ainsi le nombre moyen de mots par sens. 
+		console.log("Nombre de mots par sens : "+numberOfWordBySenses);
+		var unity = numberOfWordBySenses - 1 //permet de savoir le nombre d'"unites" a disposition pour choisir un nombre aleatoire (correspond au nombre max du rand d'ou le -1)
+		for (var i=1; i<=numberOfSenses; i++) {
+			console.log("Nombre d'unités : "+unity);
+			var numberOfWord;
+			if (i != numberOfSenses) { // on peut definir aleatoirement le nombre de mot a piocher en fonction des unites
+				numberOfWord = Math.floor(Math.random() * unity)+1; //nombre de mot a piocher pour ce sens
+				console.log("Nombre de mots à piocher : "+numberOfWord+"\n");
+				unity = unity - numberOfWord + numberOfWordBySenses;
+			}
+			else {
+				numberOfWord = unity + 1;
+			}
+			this.numberWordBySenses.push(numberOfWord);
+		}
+		console.log(this.numberWordBySenses);
+		/*ex : 5 sens, nombre de mots par sens = 2
 		Premier tour : 2 unités
 			Ont défini aléatoirement le nombre d'unité alouée au premier sens : 
 			1
@@ -49,7 +65,7 @@ var Service = Class.extend({
 		4ème tour : 2-2 + 2 = 2 unités
 			2
 		5ème tour : 2-2 + 2 = 2 unités
-			Obligé de prendre 2
+			Obligé de prendre 2*/
 	},
 	
 	getInfos: function() {
@@ -59,7 +75,7 @@ var Service = Class.extend({
 	process: function(json, _this) {
 		var words = _this.parseWords(json, _this);
 		console.log(words);
-		this.setRandomWordBySense(words.length);
+		this.setNumberWordBySenses(words.length);
 		_this.selectWords(words, _this);
 		console.log(_this.selectedWords);
 	},
@@ -85,6 +101,7 @@ var Service = Class.extend({
 		for (var word in words) {
 			var wordList = words[word].word;
 			words[word].word = wordList.replace(_this.searchWord, "");
+			words[word].gloss = words[word].gloss.replace(";", "");
 		}
 		return words;
 	},
