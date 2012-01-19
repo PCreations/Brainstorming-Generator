@@ -41,20 +41,9 @@ var Service = Class.extend({
 		var words = _this.wm.parseWords(json, _this.searchWord);
 		console.log(words);
 		_this.numberWordBySenses = _this.wm.setNumberWordBySenses(words.length);
-		/*_this.wm.selectWords(words, _this.selectedWords);
-		console.log(_this.selectedWords);*/
+		_this.wm.selectWords(words, _this.numberWordBySenses);
+		console.log("Selected Words : ");
+		console.log(_this.wm.selectedWords);
 	},
-	
-	//Permet d'ajouter un mot dans la liste des mots selectionnes
-	addSelectedWord: function(word) {
-		console.log("Mot a ajouter : \""+word+"\"\n");
-		var ws = new WordSelector();
-		if (!ws.inArray(word, this.selectedWords)) {
-			if (!(word == "" || word == " ")) //securite au cas ou
-				this.selectedWords.push(word);
-		}
-	},
-	
-	
 	
 });

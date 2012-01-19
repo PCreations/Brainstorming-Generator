@@ -5,7 +5,9 @@ var Word = Class.extend({
 		this.word = word;
 		this.type = type;
 		this.senseID = senseID;
-		this.gloss = gloss.replace(/".*"/, ""); //supression des exemples dans les définitions
+		this.wm = new WordManager();
+		this.gloss = this.wm.cleanGloss(gloss);
+		
 	},
 	
 	log: function() {
