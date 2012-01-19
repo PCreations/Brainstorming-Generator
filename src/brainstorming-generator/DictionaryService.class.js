@@ -9,10 +9,20 @@ var DictionaryService = Service.extend({
 		this.words = new Array();
 	},
 	
-	process: function(json, _this) {
-		var words = _this.parseWords(json);
-		console.log(words);
-	}
+	//Permet de selectionner les mots qui decouleront du mot selectionne
+	selectWords: function(words, _this) {
+		//On verifie dans un premier temps si un mot different est present dans la liste des mots synonymes
+		for (var w in words) {
+			if (words[i].word != "") { //c'est qu'un ou plusieurs mots est selectionnable
+				_this.selectedWords.push(_this.pickOneWord(",", words[i].word)); //on enregistre alors un mot au hasard parmis ceux possible dans la liste des mots selectionnes
+			}
+			else {
+				_this.pickRelevantWord(words[i].gloss);//sinon on recupere un mot interessant dans la description du mot
+			}
+			
+		}
+		
+	},
 	
 	
 	
