@@ -4,7 +4,6 @@ var Service = Class.extend({
 	name: '',
 	parameters: '',
 	serviceURL: '',
-	BASE_URL : "http://id.asianwordnet.org/services/",
 	
 	//constructor
 	init: function(searchWord, output) {
@@ -16,7 +15,7 @@ var Service = Class.extend({
 	},
 	
 	getServiceURL: function() {
-		return this.BASE_URL+this.name+'/'+this.output+'/'+this.parameters;
+		return this.wm.BASE_URL+this.name+'/'+this.output+'/'+this.parameters;
 	},
 	
 	sendRequest: function() {
@@ -28,8 +27,18 @@ var Service = Class.extend({
 			dataCharset: 'jsonp',
 			success: function(data) {
 				var json = eval(data);
-				_this.process(json, _this);
+				if (_this.wm.wordExists(json))
+					_this.process(json, _this);
+				else {
+					throw(console.log("Erreur : le mot "+_this.searchWord+" n'existe pas ")); //TODO faire un vrai bloc catch/try
+				}
 			},
+			complete: function(xhr, msg) {
+				_this.wm.wordsCheck();
+			},
+			error: function(xhr, status, error) {
+				console.log(status+" "+error);
+			}
 		});
 	},
 	
@@ -39,7 +48,7 @@ var Service = Class.extend({
 	
 	process: function(json, _this) {
 		var words = _this.wm.parseWords(json, _this.searchWord);
-		console.log(words);
+		//console.log(words);
 		_this.numberWordBySenses = _this.wm.setNumberWordBySenses(words.length);
 		_this.wm.selectWords(words, _this.numberWordBySenses);
 		console.log("Selected Words : ");
