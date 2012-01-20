@@ -44,7 +44,7 @@ var WordManager = Class.extend({
 	},
 	
 	//Supprime les mots qui n'existe pas de la liste des mots selectionnes
-	wordsCheck: function(callback) {
+	wordsCheck: function(callback, BSref) {
 		var _this = this; //permet de retenir la reference a l'objet courant pour la fonction process
 		console.log("wordsChecker = "+this.wordsChecker);
 		$.ajax({
@@ -75,11 +75,11 @@ var WordManager = Class.extend({
 			},
 			complete: function(xhr, msg) {
 				if (_this.wordsChecker.length > 0)
-					_this.wordsCheck(callback);
+					_this.wordsCheck(callback, BSref);
 				else {
 					console.log("MOT TRIES : "+_this.selectedWords);
 					console.log("TENTATIVE CALLBACK : "+callback);
-					callback();
+					callback(BSref);
 				}
 			}
 		});

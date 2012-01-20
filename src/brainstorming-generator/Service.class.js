@@ -18,7 +18,7 @@ var Service = Class.extend({
 		return this.wm.BASE_URL+this.name+'/'+this.output+'/'+this.parameters;
 	},
 	
-	sendRequest: function(callback) {
+	sendRequest: function(callback, BSref) {
 		var _this = this; //permet de retenir la reference a l'objet courant pour la fonction process
 		$.ajax({
 			url: this.getServiceURL(),
@@ -34,7 +34,7 @@ var Service = Class.extend({
 				}
 			},
 			complete: function(xhr, msg) {
-				_this.wm.wordsCheck(callback);
+				_this.wm.wordsCheck(callback, BSref);
 			},
 			error: function(xhr, status, error) {
 				console.log(status+" "+error);
