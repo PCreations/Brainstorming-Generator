@@ -9,11 +9,14 @@ var BSgenerator = Class.extend({
 	init: function(word) {
 		this.word = word;
 		this.dictionaryService = new DictionaryService(word, this.OUTPUT, this.DICO.DEFAULT);
-		
 	},
 	
 	generate: function() {
-		var dictionaryService = new DictionaryService(this.word, "json", "en");
+		this.dictionaryService.sendRequest(this.draw);
+	},
+
+	draw: function() {
+		console.log("ICI JE DESSINE LE BRAINSTORMING !");
 		
 	},
 

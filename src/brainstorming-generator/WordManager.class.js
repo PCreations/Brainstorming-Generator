@@ -1,7 +1,7 @@
 var WordManager = Class.extend({
 	
-	WORD_LIMIT: 20,
-	WORD_MAX_PER_SENSE: 5,
+	WORD_LIMIT: 5,
+	WORD_MAX_PER_SENSE: 1,
 	BASE_URL : "http://id.asianwordnet.org/services/",
 	
 	init: function(){
@@ -44,7 +44,7 @@ var WordManager = Class.extend({
 	},
 	
 	//Supprime les mots qui n'existe pas de la liste des mots selectionnes
-	wordsCheck: function() {
+	wordsCheck: function(callback) {
 		var _this = this; //permet de retenir la reference a l'objet courant pour la fonction process
 		console.log("wordsChecker = "+this.wordsChecker);
 		$.ajax({
@@ -75,9 +75,11 @@ var WordManager = Class.extend({
 			},
 			complete: function(xhr, msg) {
 				if (_this.wordsChecker.length > 0)
-					_this.wordsCheck();
+					_this.wordsCheck(callback);
 				else {
 					console.log("MOT TRIES : "+_this.selectedWords);
+					console.log("TENTATIVE CALLBACK : "+callback);
+					callback();
 				}
 			}
 		});

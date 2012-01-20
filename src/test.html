@@ -10,9 +10,10 @@
   <script src="brainstorming-generator/DictionaryService.class.js" type="text/javascript"></script>
   <script src="brainstorming-generator/Word.class.js" type="text/javascript"></script>
   <script src="brainstorming-generator/WordManager.class.js" type="text/javascript"></script>
+  <script src="brainstorming-generator/BSgenerator.class.js" type="text/javascript"></script>
 <script type="text/javascript">
-var service = new DictionaryService("estimator", "json", "en2id");
-service.sendRequest();
+var brainstorming = new BSgenerator("green");
+brainstorming.generate();
 </script>
 </head>
 <body>
