@@ -30,7 +30,7 @@ var Service = Class.extend({
 			success: function(data) {
 				var json = eval(data);
 				if (_this.wm.wordExists(json))
-					_this.process(json, _this);
+					_this.process(json, _this, BSref);
 				else {
 					throw(console.log("Erreur : le mot "+_this.searchWord+" n'existe pas ")); //TODO faire un vrai bloc catch/try
 				}
@@ -48,8 +48,8 @@ var Service = Class.extend({
 		console.log(this);
 	},
 	
-	process: function(json, _this) {
-		var words = _this.wm.parseWords(json, _this.searchWord);
+	process: function(json, _this, BSref) {
+		var words = _this.wm.parseWords(json, _this.searchWord, BSref);
 		//console.log(words);
 		_this.numberWordBySenses = _this.wm.setNumberWordBySenses(words.length);
 		_this.wm.selectWords(words, _this.numberWordBySenses);

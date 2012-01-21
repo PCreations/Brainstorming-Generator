@@ -19,7 +19,7 @@ var WordManager = Class.extend({
 		return dest;
 	},
 	
-	inArray: function in_array(needle, collection, strict) {
+	inArray: function (needle, collection, strict) {
 		if (strict == null) {
 			strict = false;
 		}
@@ -84,18 +84,23 @@ var WordManager = Class.extend({
 		});
 	},
 	
-	parseWords: function(json, searchWord) {
+	parseWords: function(json, searchWord, BSref) {
 		var words = new Array();
 		console.log(searchWord);
+		console.log("senses = ");
+		console.log(BSref.senses);
 		this.searchWord = searchWord;
 		for (var word in json['data']) {
-			words.push(new Word(
+			if (!this.inArray(json['data'][word]['sense_id'], BSref.senses)) {
+				words.push(new Word(
 												json['data'][word]['synset_offset'], 
 												json['data'][word]['words'],
 												json['data'][word]['ss_type'],
 												json['data'][word]['sense_id'],
 												json['data'][word]['gloss']
 											));
+				BSref.senses.push(json['data'][word]['sense_id']);
+			}
 		}
 		words = this.cleanWords(words);
 		return words;
@@ -149,6 +154,10 @@ var WordManager = Class.extend({
 		for (var w in words) { //Parcours des mots
 			//console.log("W = "+w);
 			//console.log("numberWordBySenses[w] = "+numberWordBySenses[w]);
+			/*if (words[w]['senseID'], BSref.senses) { //c'est que le sens existe deja
+				numberWordBySenses[w+1] += numberWordBySenses[w]; //on specifie qu'il faut prendre les mots dans le sens d'apres...
+				numberWordBySenses[w] = 0 //...et plus dans celui là
+			}*/
 			for (var i=0; i<numberWordBySenses[w]; i++) { //Recuperation du nombre de mots par sens
 				var choice = Math.floor(Math.random())+1; //Determine la maniere dont on recupere le mot
 				//console.log("I = "+i+" choice = "+choice);
@@ -247,6 +256,8 @@ var WordManager = Class.extend({
 				word = word.replace(";", "");
 				word = word.replace("(", "");
 				word = word.replace(")", "");
+				word = word.replace(",", "");
+				word = word.replace("'", "");
 				this.selectedWords.push(word);
 			}
 			return true;

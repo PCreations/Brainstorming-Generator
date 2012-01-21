@@ -11,6 +11,14 @@ var BSgenerator = Class.extend({
 		this.maxWord = maxWord;
 		this.callback = callback;
 		this.dictionaryService = new DictionaryService(this.maxWord, word, this.OUTPUT, this.DICO.DEFAULT);
+		this.senses = new Array(); //contiendra l'id des sens des mots pour limiter les synonymes dans les recherches
+	},
+	
+	reload: function(word, maxWord, callback) {
+		//this.word = word;
+		this.maxWord = maxWord;
+		this.callback = callback;
+		this.dictionaryService = new DictionaryService(this.maxWord, word, this.OUTPUT, this.DICO.DEFAULT);
 	},
 	
 	ucwords: function(str) {
@@ -37,24 +45,7 @@ var BSgenerator = Class.extend({
 		this.dictionaryService.sendRequest(this.callback, this);
 	},
 
-	draw: function(_this) {
-		console.log("ICI JE DESSINE LE BRAINSTORMING !");
-		//creation des elements
-		$('<ul>'
-			+'<li><a href="#">'+_this.word+'</a>'
-				+'<ul id="first">'
-				+'</ul>'
-			+'</li>'
-		+'</ul>').appendTo('body');
-		
-		var selectedWords = _this.dictionaryService.wm.selectedWords;
-		console.log(selectedWords);
-		
-		for (var w in selectedWords) {
-			$('<li><a href="#">'+_this.cleaner(selectedWords[w], _this)+'</a></li>').appendTo('#first');
-		}
-				
-	},
+	
 	
 	cleaner: function(word, _this) {
 		word = word.replace("_", " ");

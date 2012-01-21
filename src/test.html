@@ -23,12 +23,19 @@ $(document).ready(function($) {
 		for (var i=0; i<selectedWords.length; i++) {
 			//treeLevel[i] = new Array();
 			console.log("selectedWords["+i+"] dans level2 = "+selectedWords[i]);
-			treeLevel[recursiveStack[0][0]][1].push(selectedWords[i], new Array());
+			//treeLevel[recursiveStack[0][0]][1].push(selectedWords[i], new Array());// cas pour prevision 3 niveaux de recursivite
+			treeLevel[recursiveStack[0][0]][1].push(selectedWords[i]);// cas pour prevision 2 niveaux de recursivite
+			
 		}
 		recursiveStack.shift();
 		if (recursiveStack.length > 0) {
-			BSref.init(recursiveStack[0][1], 4, level2);
+			BSref.reload(recursiveStack[0][1], 4, level2);
 			BSref.generate();
+		}
+		else {
+			console.log("TREE LEVEL");
+			console.log(treeLevel);
+			//BSref.draw(treeLevel);
 		}
 	};
 	
@@ -45,13 +52,11 @@ $(document).ready(function($) {
 		}
 		console.log("recursiveStack");
 		console.log(recursiveStack);
-		console.log("TREE LEVEL");
-		console.log(treeLevel);
-		BSref.init(treeLevel[0][0], 4, level2);
+		BSref.reload(treeLevel[0][0], 5, level2);
 		BSref.generate();
 	};
 	
-	var brainstorming = new BSgenerator("image", 5, level1);
+	var brainstorming = new BSgenerator("love", 10, level1);
 	brainstorming.generate();
 	
 	
