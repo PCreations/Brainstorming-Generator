@@ -17,15 +17,19 @@ $(document).ready(function($) {
 	var recursiveStack = new Array(); //bidouille
 	
 	var level2 = function(BSref) {
-		console.log("CALLBACK PROCESS : "+BSref.dictionaryService.searchWord);
-		console.log("selectedWords = ");
+		console.log("selectedWords dans level2 pour "+recursiveStack[0][1]+" = ");
 		var selectedWords = BSref.dictionaryService.wm.selectedWords;
 		console.log(selectedWords);
 		for (var i=0; i<selectedWords.length; i++) {
 			//treeLevel[i] = new Array();
-			treeLevel[recursiveStack[0]][1].push(selectedWords[i], new Array());
+			console.log("selectedWords["+i+"] dans level2 = "+selectedWords[i]);
+			treeLevel[recursiveStack[0][0]][1].push(selectedWords[i], new Array());
 		}
 		recursiveStack.shift();
+		if (recursiveStack.length > 0) {
+			BSref.init(recursiveStack[0][1], 4, level2);
+			BSref.generate();
+		}
 	};
 	
 	var level1 = function(BSref) {
@@ -36,19 +40,18 @@ $(document).ready(function($) {
 		for (var i=0; i<selectedWords.length; i++) {
 			treeLevel[i] = new Array();
 			treeLevel[i].push(selectedWords[i], new Array());
-			recursiveStack.push(i);
+			recursiveStack[i] = new Array();
+			recursiveStack[i].push(i, treeLevel[i][0]);
 		}
-		
-		for (var i=0; i<treeLevel.length; i++) {
-			BSref.init(treeLevel[i][0], 5, level2);
-			BSref.generate();
-		}
-		
+		console.log("recursiveStack");
+		console.log(recursiveStack);
 		console.log("TREE LEVEL");
 		console.log(treeLevel);
+		BSref.init(treeLevel[0][0], 4, level2);
+		BSref.generate();
 	};
 	
-	var brainstorming = new BSgenerator("red", 10, level1);
+	var brainstorming = new BSgenerator("image", 5, level1);
 	brainstorming.generate();
 	
 	

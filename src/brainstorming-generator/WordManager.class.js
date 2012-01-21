@@ -4,7 +4,7 @@ var WordManager = Class.extend({
 	BASE_URL : "http://id.asianwordnet.org/services/",
 	
 	init: function(){
-		this.commonsWords = new Array("a", "able", "about", "above", "act", "add", "afraid", "after", "again", "against", "age", "ago", "agree", "all", "almost", "alone", "along", "already", "also", "although", "always", "am", "amount", "an", "and", "anger", "angry", "animal", "another", "answer", "any", "appear", "are", "arrive", "around", "arrive", "as", "ask", "at", "attempt", "aunt", "away", "back", "bad", "bag", "bay", "be", "became", "because", "become", "been", "before", "began", "begin", "behind", "being", "bell", "belong", "below", "beside", "best", "better", "between", "beyond", "big", "born", "borrow", "both", "bottom", "break", "bring", "brought", "bug", "built", "busy", "but", "buy", "by", "call", "came", "can", "cause", "choose", "close", "close", "consider", "come", "consider", "considerable", "contain", "continue", "could", "cry", "cut", "dare", "deal", "dear", "decide", "did", "die", "do", "does", "done", "down", "during", "each", "ear", "early", "eat", "effort", "either", "else", "end", "enjoy", "enough", "enter", "even", "ever", "every", "except", "expect", "explain", "fail", "fall", "far", "favor", "fear", "feel", "feet", "fell", "felt", "few", "fill", "find", "fit", "follow", "for", "forever", "forget", "from", "front", "gave", "get", "gives", "goes", "gone", "good", "got", "gray", "great", "grew", "grow", "guess", "had", "half", "hang", "happen", "has", "hat", "have", "having", "he", "hear", "heard", "held", "hello", "help", "her", "here", "hers", "high", "hill", "him", "his", "hit", "hold", "hot", "how", "however", "I", "if", "ill", "in", "indeed", "instead", "into", "iron", "is", "it", "its", "just", "keep", "kept", "knew", "know", "known", "late", "least", "led", "left", "lend", "less", "let", "like", "likely", "likr", "lone", "long", "look", "lot", "make", "many", "may", "me", "mean", "met", "might", "mile", "mine", "more", "most", "move", "much", "must", "my", "near", "nearly", "necessary", "neither", "never", "next", "no", "none", "nor", "not", "note", "nothing", "now", "number", "of", "off", "often", "oh", "on", "once", "only", "or", "other", "ought", "our", "out", "please", "prepare", "probable", "pull", "pure", "push", "put", "raise", "ran", "rather", "reach", "realize", "reply", "require", "rest", "run", "said", "same", "sat", "saw", "say", "see", "seem", "seen", "self", "sell", "sent", "separate", "set", "shall", "she", "should", "side", "sign", "since", "so", "sold", "some", "soon", "sorry", "stay", "step", "stick", "still", "stood", "such", "sudden", "suppose", "take", "taken", "talk", "tall", "tell", "ten", "than", "thank", "that", "the", "their", "them", "then", "there", "therefore", "these", "they", "this", "those", "though", "through", "till", "to", "today", "told", "tomorrow", "too", "took", "tore", "tought", "toward", "tried", "tries", "trust", "try", "turn", "two", "under", "until", "up", "upon", "us", "use", "usual", "various", "verb", "very", "visit", "want", "was", "we", "well", "went", "were", "what", "when", "where", "whether", "which", "while", "who", "whom", "whose", "why", "will", "with", "within", "without", "would", "yes", "yet", "you", "young", "your", "br", "img", "p","lt", "gt", "quot", "copy");
+		this.commonsWords = new Array("a", "able", "about", "above", "act", "add", "afraid", "after", "again", "against", "age", "ago", "agree", "all", "almost", "alone", "along", "already", "also", "although", "always", "am", "amount", "an", "and", "anger", "angry", "animal", "another", "answer", "any", "appear", "are", "arrive", "around", "arrive", "as", "ask", "at", "attempt", "aunt", "away", "back", "bad", "bag", "bay", "be", "became", "because", "become", "been", "before", "began", "begin", "behind", "being", "bell", "belong", "below", "beside", "best", "better", "between", "beyond", "big", "born", "borrow", "both", "bottom", "break", "bring", "brought", "bug", "built", "busy", "but", "buy", "by", "call", "came", "can", "cause", "choose", "close", "close", "consider", "come", "consider", "considerable", "contain", "continue", "could", "cry", "cut", "dare", "deal", "dear", "decide", "did", "die", "do", "does", "done", "down", "during", "each", "ear", "early", "eat", "effort", "either", "else", "end", "enjoy", "enough", "enter", "even", "ever", "every", "except", "expect", "explain", "fail", "fall", "far", "favor", "fear", "feel", "feet", "fell", "felt", "few", "fill", "find", "fit", "follow", "for", "forever", "forget", "from", "front", "gave", "get", "gives", "goes", "gone", "good", "got", "gray", "great", "grew", "grow", "guess", "had", "half", "hang", "happen", "has", "hat", "have", "having", "he", "hear", "heard", "held", "hello", "help", "her", "here", "hers", "high", "hill", "him", "his", "hit", "hold", "hot", "how", "however", "I", "if", "ill", "in", "indeed", "instead", "into", "iron", "is", "it", "its", "just", "keep", "kept", "knew", "know", "known", "late", "least", "led", "left", "lend", "less", "let", "like", "likely", "likr", "lone", "long", "look", "lot", "make", "many", "may", "me", "mean", "met", "might", "mile", "mine", "more", "most", "move", "much", "must", "my", "near", "nearly", "necessary", "neither", "never", "next", "no", "none", "nor", "not", "note", "nothing", "now", "number", "of", "off", "often", "oh", "on", "one", "once", "only", "or", "other", "ought", "our", "out", "please", "prepare", "probable", "pull", "pure", "push", "put", "raise", "ran", "rather", "reach", "realize", "reply", "require", "rest", "run", "said", "same", "sat", "saw", "say", "see", "seem", "seen", "self", "sell", "sent", "separate", "set", "shall", "she", "should", "side", "sign", "since", "so", "sold", "some", "soon", "sorry", "stay", "step", "stick", "still", "stood", "such", "sudden", "suppose", "take", "taken", "talk", "tall", "tell", "ten", "than", "thank", "that", "the", "their", "them", "then", "there", "therefore", "these", "they", "this", "those", "though", "through", "till", "to", "today", "told", "tomorrow", "too", "took", "tore", "tought", "toward", "tried", "tries", "trust", "try", "turn", "two", "under", "until", "up", "upon", "us", "use", "usual", "various", "verb", "very", "visit", "want", "was", "we", "well", "went", "were", "what", "when", "where", "whether", "which", "while", "who", "whom", "whose", "why", "will", "with", "within", "without", "would", "yes", "yet", "you", "young", "your", "br", "img", "p","lt", "gt", "quot", "copy");
 		this.selectedWords = new Array();
 		this.wordsChecker = new Array(); //tableau permettant de verifier si les mots selectionnes existent
 		this.allowedWordTypes = new Array("n");
@@ -45,7 +45,7 @@ var WordManager = Class.extend({
 	//Supprime les mots qui n'existe pas de la liste des mots selectionnes
 	wordsCheck: function(callback, BSref) {
 		var _this = this; //permet de retenir la reference a l'objet courant pour la fonction process
-		console.log("wordsChecker = "+this.wordsChecker);
+		//console.log("wordsChecker = "+this.wordsChecker);
 		$.ajax({
 			url: _this.BASE_URL+"dictionary/json/en2id/"+_this.wordsChecker[0],
 			type: 'GET',
@@ -60,8 +60,8 @@ var WordManager = Class.extend({
 					_this.selectedWords = string.split(",");
 				}
 				else {
-					console.log(_this.allowedWordTypes);
-					console.log(json['data']['1']['ss_type']);
+					//console.log(_this.allowedWordTypes);
+					//console.log(json['data']['1']['ss_type']);
 					/*!_this.inArray(json['data']['1']['ss_type'], _this.allowedWordTypes)*/
 					if (json['data']['1']['ss_type'] != 'n') {
 						//Si le mot n'est pas du bon type on l'enleve
@@ -76,8 +76,8 @@ var WordManager = Class.extend({
 				if (_this.wordsChecker.length > 0)
 					_this.wordsCheck(callback, BSref);
 				else {
-					console.log("MOT TRIES : "+_this.selectedWords);
-					console.log("TENTATIVE CALLBACK : "+callback);
+					//console.log("MOT TRIES : "+_this.selectedWords);
+					//console.log("TENTATIVE CALLBACK : "+callback);
 					callback(BSref);
 				}
 			}
@@ -122,6 +122,7 @@ var WordManager = Class.extend({
 			var regexp = "/"+this.searchWord+"/g";
 			words[word].word = this.strCleaner(',', this.searchWord, wordList);
 			words[word].gloss = words[word].gloss.replace(";", "");
+			words[word].gloss = words[word].gloss.replace(",", "");
 		}
 		return words;
 	},
@@ -212,7 +213,7 @@ var WordManager = Class.extend({
 		for (var i=1; i<=numberOfSenses; i++) {
 			//console.log("Nombre d'unités : "+unity);
 			var numberOfWord;
-			console.log("totalWord = "+totalWord);
+			//console.log("totalWord = "+totalWord);
 			if (totalWord < this.WORD_LIMIT) {
 				if (i != numberOfSenses) { // on peut definir aleatoirement le nombre de mot a piocher en fonction des unites
 					do {
@@ -231,7 +232,7 @@ var WordManager = Class.extend({
 			}
 			totalWord += numberOfWord;
 			numberWordBySenses.push(numberOfWord);
-			console.log("numberOfWord = "+numberOfWord);
+			//console.log("numberOfWord = "+numberOfWord);
 		}
 		//console.log(numberWordBySenses);
 		return numberWordBySenses;
