@@ -243,7 +243,7 @@ var WordManager = Class.extend({
 			numberWordBySenses.push(numberOfWord);
 			//console.log("numberOfWord = "+numberOfWord);
 		}
-		//console.log(numberWordBySenses);
+		console.log(numberWordBySenses);
 		return numberWordBySenses;
 	},
 	

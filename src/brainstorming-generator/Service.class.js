@@ -29,14 +29,16 @@ var Service = Class.extend({
 			dataCharset: 'jsonp',
 			success: function(data) {
 				var json = eval(data);
-				if (_this.wm.wordExists(json))
+				_this.process(json, _this, BSref);
+				/*if (_this.wm.wordExists(json))
 					_this.process(json, _this, BSref);
 				else {
 					throw(console.log("Erreur : le mot "+_this.searchWord+" n'existe pas ")); //TODO faire un vrai bloc catch/try
-				}
+				}*/
 			},
 			complete: function(xhr, msg) {
-				_this.wm.wordsCheck(callback, BSref);
+				callback(BSref);
+				//_this.wm.wordsCheck(callback, BSref);
 			},
 			error: function(xhr, status, error) {
 				console.log(status+" "+error);
@@ -53,8 +55,8 @@ var Service = Class.extend({
 		//console.log(words);
 		_this.numberWordBySenses = _this.wm.setNumberWordBySenses(words.length);
 		_this.wm.selectWords(words, _this.numberWordBySenses);
-		//console.log("Selected Words : ");
-		//console.log(_this.wm.selectedWords);
+		console.log("Selected Words : ");
+		console.log(_this.wm.selectedWords);
 	},
 	
 });

@@ -57,7 +57,7 @@ var BSgenerator = Class.extend({
 		
 		for(var i = 0; i<treeLevel.length; i++) {
 			console.log("sous mot "+i+" de "+this.word+" treeLevel["+i+"][0]: "+treeLevel[i][0]);
-			$('<li><a href="#">'+treeLevel[i][0]+'</a>'
+			$('<li><a href="#">'+this.cleaner(treeLevel[i][0], this)+'</a>'
 					+'<ul id="'+i+'">'
 					+'</ul>'
 				+'</li>').appendTo('#first');
