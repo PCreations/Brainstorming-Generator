@@ -13,8 +13,45 @@
   <script src="brainstorming-generator/BSgenerator.class.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function($) {
-	var brainstorming = new BSgenerator("green");
+	var treeLevel = new Array();
+	var recursiveStack = new Array(); //bidouille
+	
+	var level2 = function(BSref) {
+		console.log("CALLBACK PROCESS : "+BSref.dictionaryService.searchWord);
+		console.log("selectedWords = ");
+		var selectedWords = BSref.dictionaryService.wm.selectedWords;
+		console.log(selectedWords);
+		for (var i=0; i<selectedWords.length; i++) {
+			//treeLevel[i] = new Array();
+			treeLevel[recursiveStack[0]][1].push(selectedWords[i], new Array());
+		}
+		recursiveStack.shift();
+	};
+	
+	var level1 = function(BSref) {
+		console.log("CALLBACK PROCESS");
+		console.log("selectedWords = ");
+		var selectedWords = BSref.dictionaryService.wm.selectedWords;
+		console.log(selectedWords);
+		for (var i=0; i<selectedWords.length; i++) {
+			treeLevel[i] = new Array();
+			treeLevel[i].push(selectedWords[i], new Array());
+			recursiveStack.push(i);
+		}
+		
+		for (var i=0; i<treeLevel.length; i++) {
+			BSref.init(treeLevel[i][0], 5, level2);
+			BSref.generate();
+		}
+		
+		console.log("TREE LEVEL");
+		console.log(treeLevel);
+	};
+	
+	var brainstorming = new BSgenerator("red", 10, level1);
 	brainstorming.generate();
+	
+	
 });
 
 </script>

@@ -1,12 +1,13 @@
 var DictionaryService = Service.extend({
 	
 	//constructor
-	init: function(searchWord, output, type) {
-		this._super(searchWord, output);
+	init: function(maxWord, searchWord, output, type) {
+		this._super(maxWord, searchWord, output);
 		this.name = "dictionary";
 		this.type = type;
 		this.parameters = this.type+'/'+this.searchWord;
 		this.words = new Array();
+		
 	},
 	
 	//Permet de selectionner les mots qui decouleront du mot selectionne

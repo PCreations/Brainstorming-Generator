@@ -6,9 +6,11 @@ var BSgenerator = Class.extend({
 	},
 	
 	//constructor
-	init: function(word) {
+	init: function(word, maxWord, callback) {
 		this.word = word;
-		this.dictionaryService = new DictionaryService(word, this.OUTPUT, this.DICO.DEFAULT);
+		this.maxWord = maxWord;
+		this.callback = callback;
+		this.dictionaryService = new DictionaryService(this.maxWord, word, this.OUTPUT, this.DICO.DEFAULT);
 	},
 	
 	ucwords: function(str) {
@@ -32,7 +34,7 @@ var BSgenerator = Class.extend({
 	},
 	
 	generate: function() {
-		this.dictionaryService.sendRequest(this.draw, this);
+		this.dictionaryService.sendRequest(this.callback, this);
 	},
 
 	draw: function(_this) {

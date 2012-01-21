@@ -6,12 +6,14 @@ var Service = Class.extend({
 	serviceURL: '',
 	
 	//constructor
-	init: function(searchWord, output) {
+	init: function(maxWord, searchWord, output) {
+		this.maxWord = maxWord;
 		this.searchWord = searchWord;
 		this.output = output;
 		this.selectedWords = new Array();
 		this.numberWordBySenses = new Array(); //contiendra la liste de mot a recuperer pour chaque sens dans une limite de WORD_MAX_PER_SENSE mots par sens et WORD_LIMIT mots en tout
 		this.wm = new WordManager();
+		this.wm.WORD_LIMIT = this.maxWord;
 	},
 	
 	getServiceURL: function() {
