@@ -41,7 +41,7 @@ $(document).ready(function($) {
 		}
 		recursiveStack.shift();
 		if (recursiveStack.length > 0) {
-			BSref.reload(recursiveStack[0][1], 4, level2);
+			BSref.reload(recursiveStack[0][1], 7, level2);
 			BSref.generate();
 		}
 		else {
@@ -65,11 +65,11 @@ $(document).ready(function($) {
 		}
 		//console.log("recursiveStack");
 		//console.log(recursiveStack);
-		BSref.reload(treeLevel[0][0], 30, level2);
+		BSref.reload(treeLevel[0][0], 7, level2);
 		BSref.generate();
 	};
 	
-	var brainstorming = new BSgenerator("red", 40, level1);
+	var brainstorming = new BSgenerator("melancholy", 15, level1);
 	brainstorming.generate();
 	
 	var drawMindMap = function() {
@@ -115,6 +115,6 @@ $(document).ready(function($) {
 </script>
 </head>
 <body>
- <h1>TEST</h1>
+ <h1>Please wait...</h1>
 </body>
 </html>

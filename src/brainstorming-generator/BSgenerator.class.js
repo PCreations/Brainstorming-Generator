@@ -12,6 +12,7 @@ var BSgenerator = Class.extend({
 		this.callback = callback;
 		this.dictionaryService = new DictionaryService(this.maxWord, word, this.OUTPUT, this.DICO.DEFAULT);
 		this.senses = new Array(); //contiendra l'id des sens des mots pour limiter les synonymes dans les recherches
+		this.allWordsList = new Array(); //contient la liste de tous les mots independamment de leur relation
 	},
 	
 	reload: function(word, maxWord, callback) {
