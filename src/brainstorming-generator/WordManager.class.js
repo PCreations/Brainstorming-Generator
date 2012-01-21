@@ -86,9 +86,9 @@ var WordManager = Class.extend({
 	
 	parseWords: function(json, searchWord, BSref) {
 		var words = new Array();
-		console.log(searchWord);
-		console.log("senses = ");
-		console.log(BSref.senses);
+		//console.log(searchWord);
+		//console.log("senses = ");
+		//console.log(BSref.senses);
 		this.searchWord = searchWord;
 		for (var word in json['data']) {
 			if (!this.inArray(json['data'][word]['sense_id'], BSref.senses)) {
@@ -121,7 +121,7 @@ var WordManager = Class.extend({
 	
 	//Fonction permettant de garder uniquement les mots differents de celui d'origine dans la liste des mots recuperes
 	cleanWords: function(words) {
-		console.log("Mot recherché : "+this.searchWord);
+		//console.log("Mot recherché : "+this.searchWord);
 		for (var word in words) {
 			var wordList = words[word].word;
 			var regexp = "/"+this.searchWord+"/g";
@@ -149,8 +149,8 @@ var WordManager = Class.extend({
 	},
 	
 	selectWords: function(words, numberWordBySenses) {
-		console.log(words);
-		console.log(numberWordBySenses);
+		//console.log(words);
+		//console.log(numberWordBySenses);
 		for (var w in words) { //Parcours des mots
 			//console.log("W = "+w);
 			//console.log("numberWordBySenses[w] = "+numberWordBySenses[w]);
@@ -187,7 +187,7 @@ var WordManager = Class.extend({
 			}
 		}
 		this.wordsChecker = this.arrayCopy(this.selectedWords);
-		console.log("WORDS CHECKER APRES SELECT WORDS : "+this.wordsChecker);
+		//console.log("WORDS CHECKER APRES SELECT WORDS : "+this.wordsChecker);
 		
 	},
 	

@@ -45,7 +45,29 @@ var BSgenerator = Class.extend({
 		this.dictionaryService.sendRequest(this.callback, this);
 	},
 
-	
+	draw: function(treeLevel) {
+		console.log("ICI JE DESSINE LE BRAINSTORMING !");
+		//creation des elements
+		$('<ul>'
+			+'<li><a href="#">'+this.word+'</a>'
+				+'<ul id="first">'
+				+'</ul>'
+			+'</li>'
+		+'</ul>').appendTo('body');
+		
+		for(var i = 0; i<treeLevel.length; i++) {
+			console.log("sous mot "+i+" de "+this.word+" treeLevel["+i+"][0]: "+treeLevel[i][0]);
+			$('<li><a href="#">'+treeLevel[i][0]+'</a>'
+					+'<ul id="'+i+'">'
+					+'</ul>'
+				+'</li>').appendTo('#first');
+			for(var j = 0; j<treeLevel[i][1].length; j++) {
+				$('<li><a href="#">'+this.cleaner(treeLevel[i][1][j], this)+'</a></li>').appendTo('#'+i);
+			}
+			
+		}
+			
+	},
 	
 	cleaner: function(word, _this) {
 		word = word.replace("_", " ");

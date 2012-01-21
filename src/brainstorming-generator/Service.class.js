@@ -53,8 +53,8 @@ var Service = Class.extend({
 		//console.log(words);
 		_this.numberWordBySenses = _this.wm.setNumberWordBySenses(words.length);
 		_this.wm.selectWords(words, _this.numberWordBySenses);
-		console.log("Selected Words : ");
-		console.log(_this.wm.selectedWords);
+		//console.log("Selected Words : ");
+		//console.log(_this.wm.selectedWords);
 	},
 	
 });

@@ -17,12 +17,12 @@ $(document).ready(function($) {
 	var recursiveStack = new Array(); //bidouille
 	
 	var level2 = function(BSref) {
-		console.log("selectedWords dans level2 pour "+recursiveStack[0][1]+" = ");
+		//console.log("selectedWords dans level2 pour "+recursiveStack[0][1]+" = ");
 		var selectedWords = BSref.dictionaryService.wm.selectedWords;
-		console.log(selectedWords);
+		//console.log(selectedWords);
 		for (var i=0; i<selectedWords.length; i++) {
 			//treeLevel[i] = new Array();
-			console.log("selectedWords["+i+"] dans level2 = "+selectedWords[i]);
+			//console.log("selectedWords["+i+"] dans level2 = "+selectedWords[i]);
 			//treeLevel[recursiveStack[0][0]][1].push(selectedWords[i], new Array());// cas pour prevision 3 niveaux de recursivite
 			treeLevel[recursiveStack[0][0]][1].push(selectedWords[i]);// cas pour prevision 2 niveaux de recursivite
 			
@@ -33,30 +33,30 @@ $(document).ready(function($) {
 			BSref.generate();
 		}
 		else {
-			console.log("TREE LEVEL");
-			console.log(treeLevel);
-			//BSref.draw(treeLevel);
+			//console.log("TREE LEVEL");
+			//console.log(treeLevel);
+			BSref.draw(treeLevel);
 		}
 	};
 	
 	var level1 = function(BSref) {
-		console.log("CALLBACK PROCESS");
-		console.log("selectedWords = ");
+		//console.log("CALLBACK PROCESS");
+		//console.log("selectedWords = ");
 		var selectedWords = BSref.dictionaryService.wm.selectedWords;
-		console.log(selectedWords);
+		//console.log(selectedWords);
 		for (var i=0; i<selectedWords.length; i++) {
 			treeLevel[i] = new Array();
 			treeLevel[i].push(selectedWords[i], new Array());
 			recursiveStack[i] = new Array();
 			recursiveStack[i].push(i, treeLevel[i][0]);
 		}
-		console.log("recursiveStack");
-		console.log(recursiveStack);
-		BSref.reload(treeLevel[0][0], 5, level2);
+		//console.log("recursiveStack");
+		//console.log(recursiveStack);
+		BSref.reload(treeLevel[0][0], 10, level2);
 		BSref.generate();
 	};
 	
-	var brainstorming = new BSgenerator("love", 10, level1);
+	var brainstorming = new BSgenerator("image", 20, level1);
 	brainstorming.generate();
 	
 	
