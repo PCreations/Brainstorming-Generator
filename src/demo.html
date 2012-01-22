@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Brainstorming Generator v0.1a</title>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="../plugins/js-mindmap/raphael-min.js"></script>
+		<script type="text/javascript" src="../plugins/js-mindmap/js-mindmap.js"></script>
+		<script src="../plugins/simple-inheritance/simple-inheritance.js" type="text/javascript"></script>
+		<script src="brainstorming-generator/Service.class.js" type="text/javascript"></script>
+		<script src="brainstorming-generator/DictionaryService.class.js" type="text/javascript"></script>
+		<script src="brainstorming-generator/Word.class.js" type="text/javascript"></script>
+		<script src="brainstorming-generator/WordManager.class.js" type="text/javascript"></script>
+		<script src="brainstorming-generator/BSgenerator.class.js" type="text/javascript"></script>
+		<script type="text/javascript" src="brainstorming-generator/mindMap.js"></script>
+				
+        <link rel="stylesheet" href="../plugins/js-mindmap/js-mindmap.css" type="text/css" media="screen" /> 
+		 <!--[if lte IE 8]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css" />
+		<![endif]-->
+    </head>
+			
+			<!-- mindMap test, automatique ensuite -->
+			<section id="contenu">
+				<h1>Brainstorming Generator <span style="text-transform: lowercase; letter-spacing: 3px;">v0.1a</span></h1>
+				<aside id="mindMap">
+					<p id="bsInfos" style="width: 400px; height: 100px; margin: auto; text-align: center;">
+						<label for="searchWord">Choose a word : </label><input type="text" id="searchWord"/><br />
+						<input type="button" value="Brainstorm this !" onclick="brainstorm($('#searchWord').val());"/>
+					</p>
+					<aside id="indications">
+						<h2>Indications</h2>
+						<p>
+							Brainstorming Generator v0.1a est, comme son nom l'indique, un g&eacute;n&eacute;rateur de brainstorming. Indiquez un mot et il se chargera de trouver les relations pour vous.
+						</p>
+						<p>
+							Cette version est une version alpha, elle est donc <strong>tr&egrave;s</strong> limit&eacute;e et notamment dans le niveau d'arborence puisque le g&eacute;n&eacute;rateur n'en propose actuellement que 2 (bient&ocirc;t trois).
+						</p>
+						<h2>Bugs connus :</h2>
+						<ul>
+							<li>Certains mots n'ont pas de deuxi&egrave;me niveau d'arborescence</li>
+							<li>La distinction entre les mots au pluriel et au singulier n'est pas faite (bientôt)</li>
+							<li>Certains mots de liaisons tr&egrave;s courants peuvent appara&icirc;tre (genre "a", "or"...) alors qu'ils ne devraient pas</li>
+							<li>Certaines relations peuvent être vraiment tir&eacute;es par les cheveux x) (mais &ccedil;a solicitera votre imagination)</li>
+							<li>La mindmap n'est pas "bloqu&eacute;e", allez-y doucement avec les noeuds</li>
+							<li>Les mots apparaissent parfois plusieurs fois</li>
+						</ul>
+					</aside>
+				</aside>
+			</section> 
+    </body>
+</html>
