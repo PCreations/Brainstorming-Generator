@@ -95,9 +95,9 @@
     this.x = 0;
     this.y = 0;
     this.dx = 0;
-    this.dy = 5;
+    this.dy = 0;
 	this.deltaX = 0;
-	this.deltaY = 150;
+	this.deltaY = 0;
     this.hasPosition = false;
 
     this.content = []; // array of content elements to display onclick;
@@ -438,7 +438,7 @@
     this.size = "thick";
     this.end = endNode;
 	this.deltaX = 0;
-	this.deltaY = -300;
+	this.deltaY = 0;
   };
 
   Line.prototype.updatePosition = function () {
@@ -486,14 +486,14 @@
   $.fn.mindmap = function (options) {
     // Define default settings.
     options = $.extend({
-      attract: 100,
+      attract: 12,
       repulse: 6,
-      damping: 0.30,
+      damping: 0.25,
       timeperiod: 10,
       wallrepulse: 1,
       mapArea: {
         x: -1,
-        y: 600
+        y: -1
       },
       canvasError: 'alert',
       minSpeed: 0.05,
@@ -531,7 +531,7 @@
       }
       //create drawing area
 	  console.log("largeur = "+options.mapArea.x+" hauteur = "+options.mapArea.y);
-      this.canvas = Raphael(0, 300, options.mapArea.x, options.mapArea.y);
+      this.canvas = Raphael(0, 0, options.mapArea.x, options.mapArea.y);
 
       // Add a class to the object, so that styles can be applied
       $(this).addClass('js-mindmap-active');
