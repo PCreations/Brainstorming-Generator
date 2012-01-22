@@ -55,8 +55,8 @@
 (function ($) {
   'use strict';
 
-  var TIMEOUT = 4,  // movement timeout in seconds
-    CENTRE_FORCE = 3,  // strength of attraction to the centre by the active node
+  var TIMEOUT = 7,  // movement timeout in seconds
+    CENTRE_FORCE = 1,  // strength of attraction to the centre by the active node
     Node,
     Line;
 
@@ -73,7 +73,7 @@
 
     // create the element for display
     this.el = $('<a href="' + this.href + '">' + this.name + '</a>').addClass('node');
-    $('body').prepend(this.el);
+    $('#mindMap').prepend(this.el);
 
     if (!parent) {
       obj.activeNode = this;
@@ -92,10 +92,12 @@
     this.moveTimer = 0;
     this.obj.movementStopped = false;
     this.visible = true;
-    this.x = 1;
-    this.y = 1;
+    this.x = 0;
+    this.y = 0;
     this.dx = 0;
-    this.dy = 0;
+    this.dy = 5;
+	this.deltaX = 0;
+	this.deltaY = 150;
     this.hasPosition = false;
 
     this.content = []; // array of content elements to display onclick;
@@ -106,6 +108,7 @@
 
     this.el.draggable({
       drag: function () {
+		//ICI
         obj.root.animateToStatic();
       }
     });
@@ -157,13 +160,14 @@
     for (i = 0, len = this.obj.lines.length; i < len; i++) {
       this.obj.lines[i].updatePosition();
     }
+    //if (this.findEquilibrium() || this.obj.movementStopped) {
     if (this.findEquilibrium() || this.obj.movementStopped) {
       this.moving = false;
       return;
     }
     setTimeout(function () {
       mynode.animateLoop();
-    }, 10);
+    }, 1);
   };
 
   // find the right position for this node
@@ -200,8 +204,9 @@
     this.drawn = true;
     // am I positioned?  If not, position me.
     if (!this.hasPosition) {
-      this.x = this.options.mapArea.x / 2;
-      this.y = this.options.mapArea.y / 2;
+		//console.log("this.x = "+this.x"+\nthis.y = "+this.y);
+      this.x = this.options.mapArea.x / 2 + this.deltaX;
+      this.y = this.options.mapArea.y / 2 + this.deltaY;
       this.el.css({'left': this.x + "px", 'top': this.y + "px"});
       this.hasPosition = true;
     }
@@ -238,11 +243,12 @@
     forces = this.getForceVector();
     this.dx += forces.x * this.options.timeperiod;
     this.dy += forces.y * this.options.timeperiod;
-
+	
     // damp the forces
     this.dx = this.dx * this.options.damping;
     this.dy = this.dy * this.options.damping;
-
+	
+	
     //ADD MINIMUM SPEEDS
     if (Math.abs(this.dx) < this.options.minSpeed) {
       this.dx = 0;
@@ -253,6 +259,7 @@
     if (Math.abs(this.dx) + Math.abs(this.dy) === 0) {
       return true;
     }
+	
     //apply velocity vector
     this.x += this.dx * this.options.timeperiod;
     this.y += this.dy * this.options.timeperiod;
@@ -303,7 +310,7 @@
         fy += -f * Math.sin(theta) * xsign;
       }
     }
-
+	
     // add repulsive force of the "walls"
     //left wall
     xdist = this.x + this.el.width();
@@ -321,7 +328,8 @@
     f = -(this.options.wallrepulse * 500) / (bottomdist * bottomdist);
     fy += Math.max(-2, f);
 
-    // for each line, of which I'm a part, add an attractive force.
+    
+	// for each line, of which I'm a part, add an attractive force.
     for (i = 0; i < lines.length; i++) {
       otherend = null;
       if (lines[i].start === this) {
@@ -354,7 +362,7 @@
         fy += f * Math.sin(theta) * xsign;
       }
     }
-
+	
     // if I'm active, attract me to the centre of the area
     if (this.obj.activeNode === this) {
       // Attractive force (hooke's law)
@@ -429,6 +437,8 @@
     this.colour = "blue";
     this.size = "thick";
     this.end = endNode;
+	this.deltaX = 0;
+	this.deltaY = -300;
   };
 
   Line.prototype.updatePosition = function () {
@@ -437,9 +447,18 @@
     }
     this.size = (this.start.visible && this.end.visible) ? "thick" : "thin";
     this.color = (this.obj.activeNode.parent === this.start || this.obj.activeNode.parent === this.end) ? "red" : "blue";
-    this.strokeStyle = "#FFF";
+    this.strokeStyle = "#1b1c1e";
 
-    this.obj.canvas.path("M" + this.start.x + ' ' + this.start.y + "L" + this.end.x + ' ' + this.end.y).attr({'stroke': this.strokeStyle, 'opacity': 0.2, 'stroke-width': '5px'});
+    
+	/*var startX = parseInt(this.start.x) + this.deltaX;
+	var endX = parseInt(this.end.x) + this.deltaX;
+	var startY = parseInt(this.start.y) + this.deltaY;
+	var endY = parseInt(this.end.y) + this.deltaY;
+	console.log("startX = "+startX);
+	console.log("endX = "+endX);
+	console.log("startY = "+startY);
+	console.log("endY = "+endY);*/
+	this.obj.canvas.path("M" + (this.start.x+this.deltaX) + ' ' + (this.start.y+this.deltaY) + "L" + (this.end.x+this.deltaX) + ' ' + (this.end.y+this.deltaY)).attr({'stroke': this.strokeStyle, 'opacity': 0.8, 'stroke-width': '2px'});
   };
 
   $.fn.addNode = function (parent, name, options) {
@@ -467,22 +486,22 @@
   $.fn.mindmap = function (options) {
     // Define default settings.
     options = $.extend({
-      attract: 15,
+      attract: 100,
       repulse: 6,
-      damping: 0.55,
+      damping: 0.30,
       timeperiod: 10,
-      wallrepulse: 0.4,
+      wallrepulse: 1,
       mapArea: {
         x: -1,
-        y: -1
+        y: 600
       },
       canvasError: 'alert',
       minSpeed: 0.05,
-      maxForce: 0.1,
+      maxForce: 0.05,
       showSublines: false,
       updateIterationCount: 20,
-      showProgressive: true,
-      centreOffset: 100,
+      showProgressive: false,
+      centreOffset: 500,
       timer: 0
     }, options);
 
@@ -511,7 +530,8 @@
         options.mapArea.y = $window.height();
       }
       //create drawing area
-      this.canvas = Raphael(0, 0, options.mapArea.x, options.mapArea.y);
+	  console.log("largeur = "+options.mapArea.x+" hauteur = "+options.mapArea.y);
+      this.canvas = Raphael(0, 300, options.mapArea.x, options.mapArea.y);
 
       // Add a class to the object, so that styles can be applied
       $(this).addClass('js-mindmap-active');
@@ -582,5 +602,3 @@
     });
   };
 }(jQuery));
-
-/*jslint devel: true, browser: true, continue: true, plusplus: true, indent: 2 */

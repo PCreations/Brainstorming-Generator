@@ -46,7 +46,7 @@ var BSgenerator = Class.extend({
 		this.dictionaryService.sendRequest(this.callback, this);
 	},
 
-	draw: function(treeLevel) {
+	draw: function(treeLevel, elem) {
 		console.log("ICI JE DESSINE LE BRAINSTORMING !");
 		//creation des elements
 		$('<ul>'
@@ -54,7 +54,7 @@ var BSgenerator = Class.extend({
 				+'<ul id="first">'
 				+'</ul>'
 			+'</li>'
-		+'</ul>').appendTo('body');
+		+'</ul>').appendTo(elem);
 		
 		for(var i = 0; i<treeLevel.length; i++) {
 			console.log("sous mot "+i+" de "+this.word+" treeLevel["+i+"][0]: "+treeLevel[i][0]);
